@@ -22,8 +22,10 @@ class FlightController extends Controller
      */
     public function index()
     {
+        $parameters = request()->input();
+
         // call service
-        $data = $this->flights->getFlights();
+        $data = $this->flights->getFlights($parameters);
         // returm data
         return response()->json($data);
     }
@@ -57,8 +59,10 @@ class FlightController extends Controller
      */
     public function show($id)
     {
+        $parameters = request()->input();
+        $parameters['flightNumber'] = $id;
         // call service
-        $data = $this->flights->getFlight($id);
+        $data = $this->flights->getFlights($parameters);
         // returm data
         return response()->json($data);
     }
