@@ -31,16 +31,6 @@ class FlightController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -48,7 +38,12 @@ class FlightController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $flight = $this->flights->createFlight($request);
+            return response()->json($flight, 201);
+        } catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -65,17 +60,6 @@ class FlightController extends Controller
         $data = $this->flights->getFlights($parameters);
         // returm data
         return response()->json($data);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
