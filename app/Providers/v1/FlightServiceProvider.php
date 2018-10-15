@@ -3,6 +3,7 @@
 namespace App\Providers\v1;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
 use App\Services\v1;
 
 class FlightServiceProvider extends ServiceProvider
@@ -14,7 +15,9 @@ class FlightServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Validator::extend('flightstatus', function($attribute, $value, $parameters, $validator){
+            return $value == 'ontime' || $value == 'delayed';
+        });
     }
 
     /**
